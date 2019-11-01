@@ -6,7 +6,9 @@ import {createStore, compose, applyMiddleware} from 'redux';
 // // 'routerMiddleware': the new way of storing route changes with redux middleware since rrV4.
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import rootReducer from '../redux/reducers';
-// import mySaga from './redux/sagas'
+import thunk from 'redux-thunk';
+
+import mySaga from '../redux/sagas'
 
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
@@ -43,7 +45,8 @@ function configureStoreDev(initialState) {
 
     // thunk middleware can also accept an extra argument to be passed to each thunk action
     // https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument
-    // sagaMiddleware,
+    sagaMiddleware,
+    thunk,
     reactRouterMiddleware,
   ];
 
@@ -62,10 +65,10 @@ function configureStoreDev(initialState) {
   //     store.replaceReducer(connectRouterHistory(nextRootReducer));
   //   });
   // }
+  sagaMiddleware.run(mySaga)
 
   return store;
 }
-// sagaMiddleware.run(mySaga)
 
 // const configureStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
 const configureStore = configureStoreDev;

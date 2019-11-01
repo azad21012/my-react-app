@@ -8,3 +8,18 @@ export  function fetchUser(){
         }
     };
 }
+
+// thunk example
+// export  function fetchUser(){
+//     return dispatch=>
+//         setTimeout(()=> dispatch({
+//                 type:"USER_FETCH_REQUESTED",
+//                 payload : {
+//                     id:1,
+//                     name:"azad"
+//                 }
+//             })
+//         ,1000)
+    
+// }
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch,Route} from 'react-router-dom';
-import Home from './views/home';
+import Home from './containers/views/home';
 import Login from './containers/Login';
 import auth from './hoc/auth';
 
