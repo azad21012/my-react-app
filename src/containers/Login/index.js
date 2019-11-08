@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import actions from '../../redux/auth/login/action';
+import * as types from '../../constants/actionTypes';
 import {connect} from 'react-redux';
 
 function Copyright() {
@@ -61,7 +62,10 @@ class Login extends Component {
   }
   handleSubmit = (e)=>{
     e.preventDefault();
-    this.props.login(this.state.email,this.state.password)
+    // this.props.login(this.state.email,this.state.password);
+    const {email,password} = this.state;
+    const payload = {email,password};
+    this.props.dispatch( {type: types.LOGIN_REQUEST, payload} );
   }
   handleChange = name => event => {
     this.setState({[name]: event.target.value});
@@ -148,5 +152,9 @@ class Login extends Component {
 const mapDispatchToProps = {
   login:actions.login
 }
-
-export default withStyles(styles)(connect(null,mapDispatchToProps)(Login));
+/**
+ * If you call connect without providing any arguments, your component will:
+ * not re-render when the store changes
+ * receive props.dispatch that you may use to manually dispatch action
+ */
+export default withStyles(styles)(connect()(Login));

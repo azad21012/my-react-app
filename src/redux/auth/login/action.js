@@ -3,6 +3,7 @@ import {success, setToken,getToken,clearToken} from "../../../helpers/utility";
 import * as types from '../../../constants/actionTypes';
 import * as urls from '../../../constants/urls';
 import jwtDecode from 'jwt-decode';
+import decodeToken from "../../../helpers/decodeToken";
 
 const actions = {
     login: (email, password) =>
@@ -14,24 +15,23 @@ const actions = {
                 data: {email, password}
             },      
             onSuccess: function ({dispatch}, response) {
-                const token = response.token
-                setToken(token);
-                const decoded = jwtDecode(token); 
+                setToken(response.token);
+                const decoded = decodeToken(response.token); 
                 dispatch({type: success(types.LOGIN_REQUEST),
                     response:{...decoded, isAuth: true}
                 });
             }
         }),
-    checkAuth: () => dispatch => {
+    checkAuth: () => {
         const accessToken = getToken();
         if (accessToken === undefined) {
-            return dispatch({
+            return ({
                 type: success(types.CHECK_AUTHORIZATION),
                 response: {isAuth: false}
             });
         }
         const decoded = jwtDecode(accessToken);
-        return dispatch({
+        return ({
             type: success(types.CHECK_AUTHORIZATION),
             response: {...decoded, isAuth: true}
         });
