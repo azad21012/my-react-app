@@ -8,7 +8,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import rootReducer from '../redux/reducers';
 import thunk from 'redux-thunk';
 
-import mySaga from '../redux/sagas'
+import rootSaga from '../redux/rootSaga';
 
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL
@@ -65,7 +65,7 @@ function configureStoreDev(initialState) {
   //     store.replaceReducer(connectRouterHistory(nextRootReducer));
   //   });
   // }
-  sagaMiddleware.run(mySaga)
+  sagaMiddleware.run(rootSaga)
 
   return store;
 }

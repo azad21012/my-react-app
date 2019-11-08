@@ -2,11 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux';
-import { fetchUser } from '../../redux/user/action';
+// import { fetchUser } from '../../redux/user/action';
 
 
 export class Home extends React.Component {
-  showUser = ()=>this.props.dispatch(fetchUser())
+  showUser = ()=>this.props.dispatch({type:"USER_FETCH_REQUESTED"})
   render() {
     return (
       <div className="App">

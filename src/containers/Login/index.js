@@ -15,6 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 import actions from '../../redux/auth/login/action';
 import * as types from '../../constants/actionTypes';
 import {connect} from 'react-redux';
+import { loginWatcherAction } from '../../redux/auth/login/sagaAction';
 
 function Copyright() {
   return (
@@ -63,9 +64,8 @@ class Login extends Component {
   handleSubmit = (e)=>{
     e.preventDefault();
     // this.props.login(this.state.email,this.state.password);
-    const {email,password} = this.state;
-    const payload = {email,password};
-    this.props.dispatch( {type: types.LOGIN_REQUEST, payload} );
+    this.props.loginWatcherAction( this.state.email,this.state.password);
+
   }
   handleChange = name => event => {
     this.setState({[name]: event.target.value});
@@ -157,4 +157,6 @@ const mapDispatchToProps = {
  * not re-render when the store changes
  * receive props.dispatch that you may use to manually dispatch action
  */
-export default withStyles(styles)(connect()(Login));
+export default withStyles(styles)(connect(null,{
+  loginWatcherAction
+})(Login));
