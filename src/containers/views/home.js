@@ -3,10 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux';
 // import { fetchUser } from '../../redux/user/action';
+import io from 'socket.io-client';
 
 
 export class Home extends React.Component {
   showUser = ()=>this.props.dispatch({type:"USER_FETCH_REQUESTED"})
+  componentDidMount(){
+    const socket = io('http://localhost:7000');
+  }
   render() {
     return (
       <div className="App">
